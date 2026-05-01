@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * { margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    p {
+      text-align: center;
+      position: absolute;
+      top: 3%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: white;
+    }
+  </style>
+</head>
+<body>
+  <p>Wrong Subdomain :3</p>
+  <audio id="audio" src="/music.mp3" loop></audio>
+  <img id="bg" src="" alt="">
+  <script>
+    const audio = document.getElementById('audio');
+    let started = false;
+
+    const images = [
+      'boykisser.gif',
+      'image3.jpg',
+      'image2.jpg',
+      'image4.png',
+      'image5.jpg',
+      'image6.jpg',
+      'image9.jpeg',
+      'image10.jpeg',
+      'image.jpg',
+      'image7.jpeg',
+      'image8.jpeg',
+      'image11.jpeg',
+      'image12.jpeg',
+      'image13.png',
+      'image14.png',
+      'image15.jpg',
+      'image16.jpg',
+      'image17.jpg',
+      'image18.jpg',
+      'image19.jpeg',
+      'image20.jpg',
+      'image21.jpg',
+      'image22.jpeg',
+      'image23.jpg',
+      'image24.webp',
+      'image25.jpeg',
+      'image26.jpg',
+      'image27.jpeg',
+      'image28.jpg',
+    ];
+
+    let current = -1;
+
+    function randomImage() {
+      let next;
+      do { next = Math.floor(Math.random() * images.length); } while (next === current);
+      current = next;
+      document.getElementById('bg').src = images[current];
+    }
+
+    randomImage();
+
+    document.body.addEventListener('click', () => {
+      if (!started) {
+        audio.play()
+          .then(() => { started = true; })
+      }
+      randomImage();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+/* Tell MDUI to use the Symbols font globally 
+:root {
+    --mdui-icon-font-family: 'Material Symbols Rounded';
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Oswald', sans-serif;
+}
+mdui-tab::part(icon) {
+    font-size: 36px;
+    
+}
+mdui-tab::part(label) {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+}
+h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 57px;
+    text-align: center;
+    font-weight: 400;
+    letter-spacing: -0.25px;
+    margin: 20px 0;
+    color: rgb(var(--mdui-color-on-surface));
+}*/
+:root {
+    --mdui-icon-font-family: 'Material Symbols Rounded';
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Oswald', sans-serif;
+    background-color: rgb(var(--mdui-color-surface));
+    color: rgb(var(--mdui-color-on-surface));
+}
+
+mdui-tabs {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+mdui-tab::part(icon) {
+    font-size: 36px;
+}
+
+mdui-tab::part(label) {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+}
+
+h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: /*57px*/var(--mdui-typescale-display-large-size) !important;
+    text-align: left;
+    font-weight: 400;
+    margin-top: 0;
+    letter-spacing: -0.25px;
+    line-height: var(--mdui-typescale-display-large-line-height);
+    color: rgb(var(--mdui-color-on-secondary-container));
+    background-color: rgb(var(--mdui-color-secondary-container));
+    width: fit-content;
+    border-radius: 12px;
+    padding: 16px;
+    font-weight: 800;
+}
+
+p,
+div {
+    color: rgb(var(--mdui-color-on-surface));
+    font-family: 'Roboto Flex', sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+.content {
+    display: flex;
+    flex-direction: row;
+    margin: 40px 0;
+    margin-left: 40px;
+    margin-right: 40px;
+    flex-shrink: .5;
+    font-size: var(--mdui-typescale-body-large-size);
+    line-height: var(--mdui-typescale-body-large-line-height);
+    font-weight: var(--mdui-typescale-body-large-weight);
+    letter-spacing: var(--mdui-typescale-body-large-tracking);
+    position: relative;
+    font-optical-sizing: auto;
+    flex: 1;
+    border: solid 1px red;
+    height: 99999px;
+    overflow: clip;
+
+}
+.content p {
+    max-width: 85ch;  
+    margin-top: 0;
+    
+}
+mdui-tab-panel {
+    overflow: visible !important;
+}
+.key {
+    position: sticky;
+    overflow: clip;
+    top: 10px;
+    margin-top: 24px;
+    max-width: 30%;
+    height: 75vh;
+    flex: 1;
+    border: solid 1px rgb(var(--mdui-color-outline));
+    background-color: rgb(var(--mdui-color-secondary-container)) !important;
+    border-radius: 12px;
+    margin-left: auto;
+    min-width: fit-content;
+    margin-right: auto;
+    align-self: flex-start;
+}
