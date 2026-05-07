@@ -1,31 +1,4 @@
-/* Tell MDUI to use the Symbols font globally 
-:root {
-    --mdui-icon-font-family: 'Material Symbols Rounded';
-}
 
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Oswald', sans-serif;
-}
-mdui-tab::part(icon) {
-    font-size: 36px;
-    
-}
-mdui-tab::part(label) {
-    font-family: 'Oswald', sans-serif;
-    font-size: 20px;
-}
-h1 {
-    font-family: 'Oswald', sans-serif;
-    font-size: 57px;
-    text-align: center;
-    font-weight: 400;
-    letter-spacing: -0.25px;
-    margin: 20px 0;
-    color: rgb(var(--mdui-color-on-surface));
-}*/
 :root {
     --mdui-icon-font-family: 'Material Symbols Rounded';
 }
