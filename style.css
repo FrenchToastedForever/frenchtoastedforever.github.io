@@ -91,7 +91,6 @@ div {
     position: relative;
     font-optical-sizing: auto;
     flex: 1;
-    border: solid 1px red;
     height: 99999px;
     overflow: clip;
 
