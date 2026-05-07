@@ -54,6 +54,7 @@ div {
     display: flex;
     flex-direction: row;
     margin: 40px 0;
+    
     margin-left: 40px;
     margin-right: 40px;
     flex-shrink: .5;
@@ -66,6 +67,7 @@ div {
     flex: 1;
     height: 99999px;
     overflow: clip;
+    
 
 }
 .content p {

@@ -16,9 +16,49 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,XOPQ,XTRA,YOPQ,YTDE,YTFI,YTLC,YTUC@8..144,100..1000,96,468,79,-203,738,514,712&display=swap" rel="stylesheet">
     <script>
-        // use a script tag or an external JS file
         document.addEventListener("DOMContentLoaded", (event) => {
-            gsap.from(".content", { x: "-100vw", duration: 1, ease: "elastic.out" });
+            const tl = gsap.timeline();
+
+            // Fade in tabs from top
+            tl.from("mdui-tabs", { 
+                opacity: 0, 
+                y: -50, 
+                duration: 0.6, 
+                ease: "power2.out" 
+            }, 0);
+
+            // Animate content container
+            tl.from(".content", { 
+                opacity: 0, 
+                x: "-100vw", 
+                duration: 0.8, 
+                ease: "elastic.out" 
+            }, 0.2);
+
+            // Animate h1 heading
+            tl.from("h1", { 
+                opacity: 0, 
+                y: 30, 
+                duration: 0.6, 
+                ease: "back.out" 
+            }, 0.4);
+
+            // Animate paragraph text with stagger effect
+            tl.from("p", { 
+                opacity: 0, 
+                y: 20, 
+                duration: 0.5, 
+                stagger: 0.1,
+                ease: "power1.out" 
+            }, 0.6);
+
+            // Animate the sticky key element
+            tl.from(".key", { 
+                opacity: 0, 
+                scale: 0.8, 
+                duration: 0.6, 
+                ease: "back.out" 
+            }, 0.7);
         });
 
 </script>
