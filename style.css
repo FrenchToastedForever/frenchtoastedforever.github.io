@@ -76,14 +76,16 @@ div {
     
 }
 mdui-tab-panel {
+    position: relative;
     overflow: visible !important;
 }
 .key {
     position: sticky;
-    overflow: clip;
-    top: 10px;
-    margin-top: 24px;
+    overflow: auto;
+    top: 50%;
+    transform: translateY(-50%);
     max-width: 30%;
+    max-height: calc(100vh - 40px);
     height: 75vh;
     flex: 1;
     border: solid 1px rgb(var(--mdui-color-outline));
@@ -93,4 +95,40 @@ mdui-tab-panel {
     min-width: fit-content;
     margin-right: auto;
     align-self: flex-start;
+    padding: 24px 18px;
+    box-sizing: border-box;
 }
+.key .toc-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.25rem;
+    margin-bottom: 18px;
+    letter-spacing: -0.5px;
+}
+.key .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.key .toc-list li {
+    margin-bottom: 12px;
+}
+.key .toc-list li.toc-item a {
+    color: rgb(var(--mdui-color-on-surface));
+    text-decoration: none;
+    font-weight: 600;
+}
+.key .toc-list li.toc-item a:hover {
+    text-decoration: underline;
+}
+.key .toc-item.toc-level-2 {
+    margin-left: 12px;
+}
+.key .toc-item.toc-level-3 {
+    margin-left: 24px;
+}
+.key .toc-empty {
+    color: rgb(var(--mdui-color-on-surface));
+    opacity: 0.8;
+    font-size: 0.95rem;
+}
+

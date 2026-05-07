@@ -14,54 +14,125 @@
     <script src="https://unpkg.com/mdui@2/mdui.global.js"></script>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,XOPQ,XTRA,YOPQ,YTDE,YTFI,YTLC,YTUC@8..144,100..1000,96,468,79,-203,738,514,712&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,XOPQ,XTRA,YOPQ,YTDE,YTFI,YTLC,YTUC@8..144,100..1000,96,468,79,-203,738,514,712&display=swap"
+        rel="stylesheet">
     <script>
         document.addEventListener("DOMContentLoaded", (event) => {
             const tl = gsap.timeline();
+            const tabs = document.querySelector("mdui-tabs");
+            const tocContainer = document.querySelector(".key");
 
-            // Fade in tabs from top
-            tl.from("mdui-tabs", { 
-                opacity: 0, 
-                y: -50, 
-                duration: 0.6, 
-                ease: "power2.out" 
+            function slugify(text) {
+                return text.trim().toLowerCase()
+                    .replace(/[^a-z0-9\s-]/g, "")
+                    .replace(/\s+/g, "-")
+                    .replace(/-+/g, "-");
+            }
+
+            function buildTocForPanel(value) {
+                const panel = document.querySelector(`mdui-tab-panel[value="${value}"]`);
+                if (!panel || !tocContainer) return;
+
+                const headings = panel.querySelectorAll("h1, h2, h3, h4");
+                tocContainer.innerHTML = `
+                    <div class="toc-title">Table of Contents</div>
+                    <ul class="toc-list"></ul>
+                `;
+                const list = tocContainer.querySelector(".toc-list");
+
+                if (!headings.length) {
+                    list.innerHTML = `<li class="toc-empty">No headings found in this panel.</li>`;
+                    return;
+                }
+
+                headings.forEach((heading, index) => {
+                    const text = heading.textContent.trim();
+                    let id = heading.id || slugify(text || `section-${index + 1}`);
+                    if (!id) id = `section-${index + 1}`;
+
+                    let suffix = 1;
+                    while (document.getElementById(id)) {
+                        id = `${id}-${suffix}`;
+                        suffix += 1;
+                    }
+
+                    heading.id = id;
+                    const level = Math.max(0, Number(heading.tagName.slice(1)) - 1);
+                    const item = document.createElement("li");
+                    item.className = `toc-item toc-level-${level}`;
+                    item.innerHTML = `<a href="#${id}">${text}</a>`;
+                    list.appendChild(item);
+                });
+            }
+
+            function animatePanel(value) {
+                const panel = document.querySelector(`mdui-tab-panel[value="${value}"]`);
+                if (!panel) return;
+
+                gsap.fromTo(panel,
+                    { autoAlpha: 0, y: 20, scale: 0.98 },
+                    { duration: 0.35, autoAlpha: 1, y: 0, scale: 1, ease: "power2.out" }
+                );
+            }
+
+            tabs.addEventListener("change", (event) => {
+                const value = event.detail?.value || tabs.value;
+                requestAnimationFrame(() => {
+                    buildTocForPanel(value);
+                    animatePanel(value);
+                });
+            });
+
+            tabs.querySelectorAll("mdui-tab").forEach(tab => {
+                tab.addEventListener("click", () => {
+                    const value = tab.getAttribute("value");
+                    requestAnimationFrame(() => {
+                        buildTocForPanel(value);
+                        animatePanel(value);
+                    });
+                });
+            });
+
+            buildTocForPanel(tabs.value || "home");
+
+            tl.from("mdui-tabs", {
+                opacity: 0,
+                y: -50,
+                duration: 0.6,
+                ease: "power2.out"
             }, 0);
-
-            // Animate content container
-            tl.from(".content", { 
-                opacity: 0, 
-                x: "-100vw", 
-                duration: 0.8, 
-                ease: "elastic.out" 
+            tl.from(".content", {
+                opacity: 0,
+                x: "-100vw",
+                duration: 0.8,
+                ease: "elastic.out"
             }, 0.2);
 
-            // Animate h1 heading
-            tl.from("h1", { 
-                opacity: 0, 
-                y: 30, 
-                duration: 0.6, 
-                ease: "back.out" 
+            tl.from("h1", {
+                opacity: 0,
+                y: 30,
+                duration: 0.6,
+                ease: "back.out"
             }, 0.4);
 
-            // Animate paragraph text with stagger effect
-            tl.from("p", { 
-                opacity: 0, 
-                y: 20, 
-                duration: 0.5, 
+            tl.from("p", {
+                opacity: 0,
+                y: 20,
+                duration: 0.5,
                 stagger: 0.1,
-                ease: "power1.out" 
+                ease: "power1.out"
             }, 0.6);
 
-            // Animate the sticky key element
-            tl.from(".key", { 
-                opacity: 0, 
-                scale: 0.8, 
-                duration: 0.6, 
-                ease: "back.out" 
+            tl.from(".key", {
+                opacity: 0,
+                scale: 0.8,
+                duration: 0.6,
+                ease: "back.out"
             }, 0.7);
         });
 
-</script>
+    </script>
 </head>
 
 <body>
@@ -75,17 +146,53 @@
         <mdui-tab value="projects">Projects</mdui-tab>
         <mdui-tab-panel slot="panel" value="home">
             <div class="content">
-                <div><h1>Home</h1>
-                <p id="test"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a suscipit ex. Aliquam ac purus viverra, scelerisque ipsum rhoncus, tincidunt elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed eget eros et eros feugiat iaculis quis eu velit. Ut volutpat, ligula et varius faucibus, eros diam placerat quam, vitae congue erat ex nec libero. Etiam non tristique arcu. Nam nec tempus risus. Fusce nec turpis ut massa vehicula sollicitudin vitae at mauris. Nunc sed velit tempor, commodo ex at, aliquet elit. Sed non sem dolor. Morbi accumsan, nisl quis ullamcorper venenatis, orci ipsum egestas nisl, dignissim feugiat turpis tortor vehicula neque. Integer fringilla lectus ac leo tempor faucibus. Aenean at purus augue. Nam pretium ex sed felis consequat tempor. Ut nec convallis risus.
+                <div>
+                    <h1>Home</h1>
+                    <p id="test"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a suscipit ex. Aliquam
+                        ac purus viverra, scelerisque ipsum rhoncus, tincidunt elit. Vestibulum ante ipsum primis in
+                        faucibus orci luctus et ultrices posuere cubilia curae; Sed eget eros et eros feugiat iaculis
+                        quis eu velit. Ut volutpat, ligula et varius faucibus, eros diam placerat quam, vitae congue
+                        erat ex nec libero. Etiam non tristique arcu. Nam nec tempus risus. Fusce nec turpis ut massa
+                        vehicula sollicitudin vitae at mauris. Nunc sed velit tempor, commodo ex at, aliquet elit. Sed
+                        non sem dolor. Morbi accumsan, nisl quis ullamcorper venenatis, orci ipsum egestas nisl,
+                        dignissim feugiat turpis tortor vehicula neque. Integer fringilla lectus ac leo tempor faucibus.
+                        Aenean at purus augue. Nam pretium ex sed felis consequat tempor. Ut nec convallis risus.
 
-Morbi malesuada ante vulputate vestibulum suscipit. Aenean eget dignissim justo. Phasellus facilisis purus urna, sed rhoncus elit euismod sit amet. Pellentesque et fermentum tellus. Curabitur id iaculis mauris. Morbi viverra justo lorem, facilisis sodales dui egestas eget. Aliquam porttitor, odio sed tempor semper, est massa rhoncus dui, non bibendum dui mauris non neque. Suspendisse in metus elit. Suspendisse lacinia ante pharetra, ultrices eros in, dapibus dui. Vestibulum pulvinar neque vitae velit ultricies, quis porta nisi tincidunt. Curabitur nec rhoncus arcu. Duis eget purus at ligula interdum scelerisque eget eget sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec fringilla consectetur lectus viverra pharetra. Donec ultrices elementum ultrices.
+                        Morbi malesuada ante vulputate vestibulum suscipit. Aenean eget dignissim justo. Phasellus
+                        facilisis purus urna, sed rhoncus elit euismod sit amet. Pellentesque et fermentum tellus.
+                        Curabitur id iaculis mauris. Morbi viverra justo lorem, facilisis sodales dui egestas eget.
+                        Aliquam porttitor, odio sed tempor semper, est massa rhoncus dui, non bibendum dui mauris non
+                        neque. Suspendisse in metus elit. Suspendisse lacinia ante pharetra, ultrices eros in, dapibus
+                        dui. Vestibulum pulvinar neque vitae velit ultricies, quis porta nisi tincidunt. Curabitur nec
+                        rhoncus arcu. Duis eget purus at ligula interdum scelerisque eget eget sem. Orci varius natoque
+                        penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec fringilla consectetur
+                        lectus viverra pharetra. Donec ultrices elementum ultrices.
 
-Nam condimentum justo dolor, eget egestas dolor cursus sed. Ut dapibus aliquam felis, vel ornare lectus blandit viverra. Aliquam nec arcu lorem. Ut malesuada massa orci, eget pulvinar lectus porttitor non. Aliquam ornare nunc sed maximus aliquam. Sed maximus laoreet magna eget imperdiet. Quisque est turpis, congue a est et, lacinia feugiat orci. Aenean molestie faucibus est ut congue. Vestibulum ultricies augue vel massa pretium, at venenatis ex blandit. Nam urna erat, aliquam vitae orci non, dignissim aliquam risus. Morbi pretium, justo sit amet lacinia congue, lacus turpis hendrerit risus, sit amet tristique erat magna nec magna. Donec sagittis at velit id hendrerit. Donec semper auctor justo. Ut ac eleifend odio. Nulla facilisi.
+                        Nam condimentum justo dolor, eget egestas dolor cursus sed. Ut dapibus aliquam felis, vel ornare
+                        lectus blandit viverra. Aliquam nec arcu lorem. Ut malesuada massa orci, eget pulvinar lectus
+                        porttitor non. Aliquam ornare nunc sed maximus aliquam. Sed maximus laoreet magna eget
+                        imperdiet. Quisque est turpis, congue a est et, lacinia feugiat orci. Aenean molestie faucibus
+                        est ut congue. Vestibulum ultricies augue vel massa pretium, at venenatis ex blandit. Nam urna
+                        erat, aliquam vitae orci non, dignissim aliquam risus. Morbi pretium, justo sit amet lacinia
+                        congue, lacus turpis hendrerit risus, sit amet tristique erat magna nec magna. Donec sagittis at
+                        velit id hendrerit. Donec semper auctor justo. Ut ac eleifend odio. Nulla facilisi.
 
-Vivamus eget commodo est, in aliquam dolor. Duis viverra lectus convallis auctor vehicula. Fusce non porttitor mauris, non mattis turpis. Proin nec consequat quam. Proin nunc ex, scelerisque nec egestas eget, venenatis ac est. Donec vel sapien at erat hendrerit convallis a sit amet felis. Maecenas eu orci lectus. Ut lorem nulla, feugiat sed ultrices id, sollicitudin ut ante. Morbi eget ipsum nec arcu dapibus laoreet ac sed erat. Phasellus finibus mi vitae massa tincidunt commodo. Integer sodales aliquam lorem sollicitudin aliquam. Pellentesque vehicula ex a massa molestie, eu iaculis justo tempus. Sed cursus nisi sit amet justo porttitor, ac porta elit laoreet.
+                        Vivamus eget commodo est, in aliquam dolor. Duis viverra lectus convallis auctor vehicula. Fusce
+                        non porttitor mauris, non mattis turpis. Proin nec consequat quam. Proin nunc ex, scelerisque
+                        nec egestas eget, venenatis ac est. Donec vel sapien at erat hendrerit convallis a sit amet
+                        felis. Maecenas eu orci lectus. Ut lorem nulla, feugiat sed ultrices id, sollicitudin ut ante.
+                        Morbi eget ipsum nec arcu dapibus laoreet ac sed erat. Phasellus finibus mi vitae massa
+                        tincidunt commodo. Integer sodales aliquam lorem sollicitudin aliquam. Pellentesque vehicula ex
+                        a massa molestie, eu iaculis justo tempus. Sed cursus nisi sit amet justo porttitor, ac porta
+                        elit laoreet.
 
-Ut eget mauris aliquet, sagittis risus ac, maximus ex. Aliquam ante orci, eleifend non pharetra et, elementum in augue. Phasellus sollicitudin ultrices vestibulum. Sed sollicitudin mi ac augue tincidunt, vel tempor diam luctus. In quis massa eu neque hendrerit efficitur vitae at massa. Phasellus sit amet urna commodo, viverra metus in, lacinia diam. Nulla pharetra in risus in scelerisque. 
-                </p></div>
+                        Ut eget mauris aliquet, sagittis risus ac, maximus ex. Aliquam ante orci, eleifend non pharetra
+                        et, elementum in augue. Phasellus sollicitudin ultrices vestibulum. Sed sollicitudin mi ac augue
+                        tincidunt, vel tempor diam luctus. In quis massa eu neque hendrerit efficitur vitae at massa.
+                        Phasellus sit amet urna commodo, viverra metus in, lacinia diam. Nulla pharetra in risus in
+                        scelerisque.
+                    </p>
+                </div>
                 <div class="key">
 
                 </div>
@@ -94,7 +201,7 @@ Ut eget mauris aliquet, sagittis risus ac, maximus ex. Aliquam ante orci, eleife
         <mdui-tab-panel slot="panel" value="about">Search Page</mdui-tab-panel>
         <mdui-tab-panel slot="panel" value="projects">Settings Page</mdui-tab-panel>
     </mdui-tabs>
-    
+
 </body>
 
 </html>
