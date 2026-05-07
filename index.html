@@ -13,7 +13,15 @@
     <link rel="stylesheet" href="https://unpkg.com/mdui@2/mdui.css">
     <script src="https://unpkg.com/mdui@2/mdui.global.js"></script>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,XOPQ,XTRA,YOPQ,YTDE,YTFI,YTLC,YTUC@8..144,100..1000,96,468,79,-203,738,514,712&display=swap" rel="stylesheet">
+    <script>
+        // use a script tag or an external JS file
+        document.addEventListener("DOMContentLoaded", (event) => {
+            gsap.from(".content", { x: "-100vw", duration: 1, ease: "elastic.out" });
+        });
+
+</script>
 </head>
 
 <body>
@@ -28,7 +36,7 @@
         <mdui-tab-panel slot="panel" value="home">
             <div class="content">
                 <div><h1>Home</h1>
-                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a suscipit ex. Aliquam ac purus viverra, scelerisque ipsum rhoncus, tincidunt elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed eget eros et eros feugiat iaculis quis eu velit. Ut volutpat, ligula et varius faucibus, eros diam placerat quam, vitae congue erat ex nec libero. Etiam non tristique arcu. Nam nec tempus risus. Fusce nec turpis ut massa vehicula sollicitudin vitae at mauris. Nunc sed velit tempor, commodo ex at, aliquet elit. Sed non sem dolor. Morbi accumsan, nisl quis ullamcorper venenatis, orci ipsum egestas nisl, dignissim feugiat turpis tortor vehicula neque. Integer fringilla lectus ac leo tempor faucibus. Aenean at purus augue. Nam pretium ex sed felis consequat tempor. Ut nec convallis risus.
+                <p id="test"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a suscipit ex. Aliquam ac purus viverra, scelerisque ipsum rhoncus, tincidunt elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed eget eros et eros feugiat iaculis quis eu velit. Ut volutpat, ligula et varius faucibus, eros diam placerat quam, vitae congue erat ex nec libero. Etiam non tristique arcu. Nam nec tempus risus. Fusce nec turpis ut massa vehicula sollicitudin vitae at mauris. Nunc sed velit tempor, commodo ex at, aliquet elit. Sed non sem dolor. Morbi accumsan, nisl quis ullamcorper venenatis, orci ipsum egestas nisl, dignissim feugiat turpis tortor vehicula neque. Integer fringilla lectus ac leo tempor faucibus. Aenean at purus augue. Nam pretium ex sed felis consequat tempor. Ut nec convallis risus.
 
 Morbi malesuada ante vulputate vestibulum suscipit. Aenean eget dignissim justo. Phasellus facilisis purus urna, sed rhoncus elit euismod sit amet. Pellentesque et fermentum tellus. Curabitur id iaculis mauris. Morbi viverra justo lorem, facilisis sodales dui egestas eget. Aliquam porttitor, odio sed tempor semper, est massa rhoncus dui, non bibendum dui mauris non neque. Suspendisse in metus elit. Suspendisse lacinia ante pharetra, ultrices eros in, dapibus dui. Vestibulum pulvinar neque vitae velit ultricies, quis porta nisi tincidunt. Curabitur nec rhoncus arcu. Duis eget purus at ligula interdum scelerisque eget eget sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec fringilla consectetur lectus viverra pharetra. Donec ultrices elementum ultrices.
 
