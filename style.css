@@ -30,11 +30,20 @@ mdui-tab::part(label) {
     font-family: 'Oswald', sans-serif;
     font-size: 20px;
 }
-
-
-h1 {
+#logo {
+    font-size: 20px;
     font-family: 'Syne', sans-serif;
-    font-size: /*57px*/var(--mdui-typescale-display-large-size) !important;
+    letter-spacing: -0.25px;
+    text-align: left;
+    margin-right: auto;
+    margin-left: 16px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+/*h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: /*57px*//*var(--mdui-typescale-display-large-size) !important;
     text-align: left;
     font-weight: 400;
     margin-left: auto;
@@ -47,7 +56,7 @@ h1 {
     border-radius: 12px;
     padding: 16px;
     font-weight: 800;
-}
+}*/
 
 p,
 div {
@@ -57,8 +66,9 @@ div {
     font-style: normal;
 }
 .content {
+    justify-content: center;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     margin-left: 40px;
     margin-right: 40px;
     flex-shrink: .5;
@@ -72,13 +82,14 @@ div {
     overflow: visible;
 }
 .content p {
-    max-width: 85ch;  
+    max-width: 672px;
     margin-top: 0;
-    background-color: rgb(var(--mdui-color-secondary-container));
+    background-color: rgb(var(--mdui-color-surface));
     border: solid 1px rgb(var(--mdui-color-outline));
     border-radius: 12px;
     padding: 24px;
-    text-align: right;
+    text-align: center;
+    color: rgb(var(--mdui-color-on-surface));
 }
 mdui-tab-panel {
     position: relative;
@@ -86,55 +97,5 @@ mdui-tab-panel {
     padding-top: 40px;
 }
 
-.key {
-    position: sticky;
-    overflow: auto;
-    top: calc(48px + (100vh - 48px) / 2 - 37.5vh);
-    align-self: flex-start;
-    max-width: 30%;
-    height: 100vh;
-    flex: 1;
-    border: solid 1px rgb(var(--mdui-color-outline));
-    background-color: rgb(var(--mdui-color-secondary-container)) !important;
-    border-radius: 12px;
-    margin-left: auto;
-    min-width: fit-content;
-    margin-right: auto;
-    align-self: flex-start;
-    padding: 24px 18px;
-    box-sizing: border-box;
-}
-.key .toc-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.25rem;
-    margin-bottom: 18px;
-    letter-spacing: -0.5px;
-}
-.key .toc-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.key .toc-list li {
-    margin-bottom: 12px;
-}
-.key .toc-list li.toc-item a {
-    color: rgb(var(--mdui-color-on-surface));
-    text-decoration: none;
-    font-weight: 600;
-}
-.key .toc-list li.toc-item a:hover {
-    text-decoration: underline;
-}
-.key .toc-item.toc-level-2 {
-    margin-left: 12px;
-}
-.key .toc-item.toc-level-3 {
-    margin-left: 24px;
-}
-.key .toc-empty {
-    color: rgb(var(--mdui-color-on-surface));
-    opacity: 0.8;
-    font-size: 0.95rem;
-}
+
 

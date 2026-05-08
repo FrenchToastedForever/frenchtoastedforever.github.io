@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="mdui-theme-dark">
 
 <head>
     <title>Home</title>
@@ -127,12 +127,6 @@
                 ease: "power1.out"
             }, 0.6);
 
-            tl.from(".key", {
-                opacity: 0,
-                scale: 0.8,
-                duration: 0.6,
-                ease: "back.out"
-            }, 0.7);
         });
         document.querySelector('#tabs').addEventListener('change', (e) => {
             const value = e.detail?.value || e.target.value;
@@ -145,12 +139,13 @@
 
 <body>
     <script>
+        import { setColorScheme } from 'mdui/functions/setColorScheme.js';
         mdui.setColorScheme('#1100ff');
-        mdui.setTheme('dark'); 
+        mdui.setTheme('light'); 
     </script>
     <mdui-tabs placement="top-end" value="home">
         
-        
+        <h1 id="logo">FrenchToasted</h1>
         <mdui-tab value="projects">Projects</mdui-tab>
         <mdui-tab value="about">About</mdui-tab>
         <mdui-tab value="home" icon="home" id="" active></mdui-tab>
@@ -158,10 +153,6 @@
         <mdui-tab-panel slot="panel" value="home">
             <div class="content">
                 
-                    
-                    <div class="key">
-                        
-                    </div>
                 
                 
                 <p id="test"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a suscipit ex. Aliquam
