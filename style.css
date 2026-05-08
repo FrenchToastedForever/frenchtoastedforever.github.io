@@ -15,7 +15,11 @@ body {
 mdui-tabs {
     position: sticky;
     top: 0;
+    right: 0;
     z-index: 100;
+    display: flex;
+    
+    width: 100%;
 }
 
 mdui-tab::part(icon) {
@@ -27,11 +31,13 @@ mdui-tab::part(label) {
     font-size: 20px;
 }
 
+
 h1 {
     font-family: 'Syne', sans-serif;
     font-size: /*57px*/var(--mdui-typescale-display-large-size) !important;
     text-align: left;
     font-weight: 400;
+    margin-left: auto;
     margin-top: 0;
     letter-spacing: -0.25px;
     line-height: var(--mdui-typescale-display-large-line-height);
@@ -52,9 +58,7 @@ div {
 }
 .content {
     display: flex;
-    flex-direction: row;
-    margin: 40px 0;
-    
+    flex-direction: row-reverse;
     margin-left: 40px;
     margin-right: 40px;
     flex-shrink: .5;
@@ -65,28 +69,30 @@ div {
     position: relative;
     font-optical-sizing: auto;
     flex: 1;
-    height: 99999px;
-    overflow: clip;
-    
-
+    overflow: visible;
 }
 .content p {
     max-width: 85ch;  
     margin-top: 0;
-    
+    background-color: rgb(var(--mdui-color-secondary-container));
+    border: solid 1px rgb(var(--mdui-color-outline));
+    border-radius: 12px;
+    padding: 24px;
+    text-align: right;
 }
 mdui-tab-panel {
     position: relative;
     overflow: visible !important;
+    padding-top: 40px;
 }
+
 .key {
     position: sticky;
     overflow: auto;
-    top: 50%;
-    transform: translateY(-50%);
+    top: calc(48px + (100vh - 48px) / 2 - 37.5vh);
+    align-self: flex-start;
     max-width: 30%;
-    max-height: calc(100vh - 40px);
-    height: 75vh;
+    height: 100vh;
     flex: 1;
     border: solid 1px rgb(var(--mdui-color-outline));
     background-color: rgb(var(--mdui-color-secondary-container)) !important;
