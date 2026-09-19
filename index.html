@@ -1,171 +1,61 @@
 <!DOCTYPE html>
-<html class="mdui-theme-dark">
-
+<html lang="en">
 <head>
-    <title>Home</title>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Syne:wght@400..800&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/mdui@2/mdui.css">
-    <script src="https://unpkg.com/mdui@2/mdui.global.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,XOPQ,XTRA,YOPQ,YTDE,YTFI,YTLC,YTUC@8..144,100..1000,96,468,79,-203,738,514,712&display=swap"
-        rel="stylesheet">
-    <script>
-        document.addEventListener("DOMContentLoaded", (event) => {
-            const tl = gsap.timeline();
-            const tabs = document.querySelector("mdui-tabs");
-            const tocContainer = document.querySelector(".key");
-
-            function slugify(text) {
-                return text.trim().toLowerCase()
-                    .replace(/[^a-z0-9\s-]/g, "")
-                    .replace(/\s+/g, "-")
-                    .replace(/-+/g, "-");
-            }
-
-            function buildTocForPanel(value) {
-                const panel = document.querySelector(`mdui-tab-panel[value="${value}"]`);
-                if (!panel || !tocContainer) return;
-
-                const headings = panel.querySelectorAll("h1, h2, h3, h4");
-                tocContainer.innerHTML = `
-                    <div class="toc-title">Table of Contents</div>
-                    <ul class="toc-list"></ul>
-                `;
-                const list = tocContainer.querySelector(".toc-list");
-
-                if (!headings.length) {
-                    list.innerHTML = `<li class="toc-empty">No headings found in this panel.</li>`;
-                    return;
-                }
-
-                
-
-                headings.forEach((heading, index) => {
-                    const text = heading.textContent.trim();
-                    let id = heading.id || slugify(text || `section-${index + 1}`);
-                    if (!id) id = `section-${index + 1}`;
-
-                    let suffix = 1;
-                    while (document.getElementById(id)) {
-                        id = `${id}-${suffix}`;
-                        suffix += 1;
-                    }
-
-                    heading.id = id;
-                    const level = Math.max(0, Number(heading.tagName.slice(1)) - 1);
-                    const item = document.createElement("li");
-                    item.className = `toc-item toc-level-${level}`;
-                    item.innerHTML = `<a href="#${id}">${text}</a>`;
-                    list.appendChild(item);
-                });
-            }
-
-            function animatePanel(value) {
-                const panel = document.querySelector(`mdui-tab-panel[value="${value}"]`);
-                if (!panel) return;
-
-                gsap.fromTo(panel,
-                    { autoAlpha: 0, y: 20, scale: 0.98 },
-                    { duration: 0.35, autoAlpha: 1, y: 0, scale: 1, ease: "power2.out" }
-                );
-            }
-
-            tabs.addEventListener("change", (event) => {
-                const value = event.detail?.value || tabs.value;
-                requestAnimationFrame(() => {
-                    buildTocForPanel(value);
-                    animatePanel(value);
-                });
-            });
-
-            tabs.querySelectorAll("mdui-tab").forEach(tab => {
-                tab.addEventListener("click", () => {
-                    const value = tab.getAttribute("value");
-                    requestAnimationFrame(() => {
-                        buildTocForPanel(value);
-                        animatePanel(value);
-                    });
-                });
-            });
-
-            
-            buildTocForPanel(tabs.value || "home");
-
-            tl.from("mdui-tabs", {
-                opacity: 0,
-                y: -50,
-                duration: 0.6,
-                ease: "power2.out"
-            }, 0);
-            tl.from(".content", {
-                opacity: 0,
-                x: "-100vw",
-                duration: 0.8,
-                ease: "elastic.out"
-            }, 0.2);
-
-            tl.from("h1", {
-                opacity: 0,
-                y: 30,
-                duration: 0.6,
-                ease: "back.out"
-            }, 0.4);
-
-            tl.from("p", {
-                opacity: 0,
-                y: "100vh",
-                duration: .5,
-                stagger: 1,
-                ease: "power2.out"
-
-            });
-
-        });
-        document.querySelector('#tabs').addEventListener('change', (e) => {
-            const value = e.detail?.value || e.target.value;
-            document.querySelectorAll('.panel').forEach(p => p.hidden = true);
-            document.querySelector(`#panel-${value}`).hidden = false;
-        });
-
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FrenchToasted - High school student portfolio and learning journal">
+    <meta name="keywords" content="student, high school, portfolio, learning, programming, MIT">
+    <meta name="author" content="FrenchToasted">
+    <meta name="robots" content="index, follow">
+    <title>FrenchToasted - Student Portfolio</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #1a1a1a; background: #fff; padding: 40px 20px; max-width: 800px; margin: 0 auto; }
+        h1 { font-size: 2.5rem; font-weight: 600; margin-bottom: 0.5rem; color: #000; }
+        .subtitle { color: #666; font-size: 1.1rem; margin-bottom: 2rem; }
+        .section { margin-bottom: 2.5rem; }
+        h2 { font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; color: #333; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; }
+        p { margin-bottom: 1rem; color: #444; }
+        ul { margin-left: 1.5rem; margin-bottom: 1rem; color: #444; }
+        li { margin-bottom: 0.5rem; }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+.contact { font-size: 0.95rem; color: #666; }
+    </style>
 </head>
-
 <body>
-    <script>
-        import { setColorScheme } from 'mdui/functions/setColorScheme.js';
-        mdui.setColorScheme('#1100ff');
-        mdui.setTheme('light'); 
-    </script>
-    <mdui-tabs placement="top-end" value="home">
-        
-        <h1 id="logo">FrenchToasted</h1>
-        <mdui-tab value="projects">Projects</mdui-tab>
-        <mdui-tab value="about">About</mdui-tab>
-        <mdui-tab value="home" icon="home" id="" active></mdui-tab>
-        
-        <mdui-tab-panel slot="panel" value="home">
-            <div class="content">
-                
-                
-                
-                <p id="test"> 
-                    </p>
-                
-            </div>
-        </mdui-tab-panel>
-    
-        <mdui-tab-panel slot="panel" value="about">Search Page</mdui-tab-panel>
-        <mdui-tab-panel slot="panel" value="projects">Settings Page</mdui-tab-panel>
-    </mdui-tabs>
+    <header>
+        <h1>FrenchToasted</h1>
+        <p class="subtitle">High School Student &amp; Aspiring Developer</p>
+    </header>
 
+    <section class="section">
+        <h2>About</h2>
+        <p>I'm a high school student passionate about learning programming and computer science. I enjoy building small projects, experimenting with code, and continuously improving my skills. This site documents my learning journey as I work toward my goal of studying computer science at MIT.</p>
+    </section>
+
+    <section class="section">
+        <h2>Education</h2>
+        <p><strong>High School Diploma</strong> &mdash; Expected Graduation: 2028</p>
+        <p>Dream school: Massachusetts Institute of Technology (MIT) for Computer Science.</p>
+        <p>Currently focused on mathematics, physics, and building a strong foundation in programming through self-directed learning and online courses.</p>
+    </section>
+
+    <section class="section">
+        <h2>Learning Mindset</h2>
+        <p>I'm deeply committed to continuous learning and growth. While I'm early in my programming journey, I'm eager to explore new technologies, tackle challenging problems, and develop the skills needed for a future in computer science. I believe that curiosity, persistence, and a willingness to learn are the most important qualities for any developer.</p>
+    </section>
+
+    <section class="section">
+        <h2>School Year Progress Tracker</h2>
+        <p>A simple utility to track academic progress through the school year. Calculates percentage complete and days remaining based on the official academic calendar, accounting for holidays and breaks.</p>
+        <p><em>Note: This is a personal reference tool. Dates reflect the 2026-2027 academic year.</em></p>
+    </section>
+
+    <section class="section contact">
+        <h2>Contact</h2>
+        <p>GitHub: <a href="https://github.com/frenchtoastedforever" target="_blank" rel="noopener">github.com/frenchtoastedforever</a></p>
+        <p>Discord: <a href="https://discord.com/users/frenchtoastedforever" target="_blank" rel="noopener">frenchtoastedforever</a></p>
+    </section>
 </body>
-
 </html>
